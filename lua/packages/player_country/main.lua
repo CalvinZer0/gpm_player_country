@@ -19,7 +19,7 @@ local PLAYER = FindMetaTable("Player")
 do
 
     function PLAYER:Country()
-        return self:GetNWString( "GPM.Where_Im", default_language )
+        return self:GetNWString( "GPM.Where_Am_I", default_language )
     end
 
 end
@@ -27,7 +27,7 @@ end
 if (SERVER) then
 
     function PLAYER:SetCountry( country_code )
-        return self:SetNWString( "GPM.Where_Im", country_code or default_language )
+        return self:SetNWString( "GPM.Where_Am_I", country_code or default_language )
     end
 
     util.AddNetworkString( "GPM.Where_Are_You?" )
@@ -38,7 +38,7 @@ if (SERVER) then
 
     local net_ReadString = net.ReadString
     net.Receive("GPM.Where_Are_You?", function( len, ply )
-        if IsValid( ply ) and (ply:GetNWString( "GPM.Where_Im", false ) == false) then
+        if IsValid( ply ) and (ply:GetNWString( "GPM.Where_Am_I", false ) == false) then
             ply:SetCountry( net_ReadString() )
         end
     end)
